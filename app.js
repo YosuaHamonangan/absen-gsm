@@ -9,7 +9,7 @@ var compiler = webpack(config);
 
 global.Sequelize = require('sequelize');
 
-if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
+if (process.env.DATABASE_URL) {
 	global.sequelize = new Sequelize(process.env.DATABASE_URL, {
 	  dialect:  'postgres',
 	  protocol: 'postgres',
