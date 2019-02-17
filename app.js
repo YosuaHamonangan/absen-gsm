@@ -8,13 +8,24 @@ var config = require('./webpack.config.js');
 var compiler = webpack(config);
 
 global.Sequelize = require('sequelize');
-global.sequelize = new Sequelize('database', 'username', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	storage: 'gsm.db',
-	logging: false
-});
 
+if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
+	global.sequelize = new Sequelize(process.env.DATABASE_URL, {
+	  dialect:  'postgres',
+	  protocol: 'postgres',
+	  port:     match[4],
+	  host:     match[3],
+	  logging:  false
+	})
+}
+else{
+	global.sequelize = new Sequelize('database', 'username', 'password', {
+		host: 'localhost',
+		dialect: 'sqlite',
+		storage: 'gsm.db',
+		logging: false
+	});
+}
 sequelize
 .authenticate()
 .then(() => {
