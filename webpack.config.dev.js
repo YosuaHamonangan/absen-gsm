@@ -1,26 +1,13 @@
 var path = require('path');
 var webpack = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: './public/javascripts/index.js',
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
-    },
-    optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: true
-              }),
-            new OptimizeCSSAssetsPlugin({})
-        ]
     },
     module: {
         rules: [
@@ -38,13 +25,12 @@ module.exports = {
                 use: [
                     {
                         loader: "html-loader",
-                        options: { minimize: true }
                     }
                 ]
             },
             {
                 test: /\.scss|.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'style-loader', 'sass-loader']
+                loader: 'style-loader!css-loader!sass-loader?sourceMap'
             }
         ]
     },
@@ -52,11 +38,11 @@ module.exports = {
         extensions: ['.js', '.jsx'],
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebPackPlugin({
             template: "./public/index.html",
             filename: "./index.html"
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
         historyApiFallback: true,
