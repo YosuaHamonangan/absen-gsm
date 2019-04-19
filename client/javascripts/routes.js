@@ -4,8 +4,8 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import DynamicImport from './components/dynamic-import';
 
 // Home and default route
-import indexComponent from "./views/home";
-import defaultRoute from "./views/no-page";
+var indexRoute = "home";
+var defaultRoute = "no-page";
 
 var routeList = [
 	{
@@ -40,11 +40,17 @@ var routeList = [
 		path: "absen",
 		loader: () => import("./views/absen")
 	},
+	{
+		path: "no-page",
+		loader: () => import("./views/no-page")
+	}
 ];
 
+var indexComponent, defaultComponent;
 var routes = routeList.map( route => {
 	var component = DynamicImport({ loader: route.loader});
-	if(route.path === defaultRoute) defaultRoute = component;
+	if(route.path === indexRoute) indexComponent = component;
+	if(route.path === defaultRoute) defaultComponent = component;
 
 	return <Route key={route.path}  path={"/" + route.path} component={component}/>;
 });
@@ -53,6 +59,6 @@ export default (
 	<Switch>
 		<Route exact path='/' component={indexComponent} />
 		{routes}
-		<Route path='*' component={defaultRoute} />
+		<Route path='*' component={defaultComponent} />
 	</Switch>
 );
