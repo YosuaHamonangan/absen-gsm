@@ -40,9 +40,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', require('./routes/index'));
-app.use('/murid', require('./routes/murid'));
-app.use('/kelas', require('./routes/kelas'));
+app.use('/', require('./server/routes/index'));
+app.use('/murid', require('./server/routes/murid'));
+app.use('/kelas', require('./server/routes/kelas'));
 
 
 if(IS_DEV){	

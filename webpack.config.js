@@ -7,7 +7,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
     mode: 'production',
-    entry: './public/javascripts/index.js',
+    entry: './client/javascripts/index.js',
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
@@ -54,7 +54,7 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebPackPlugin({
-            template: "./public/index.html",
+            template: "./client/index.html",
             filename: "./index.html"
         })
     ],
