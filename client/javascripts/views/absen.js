@@ -15,7 +15,7 @@ function Kelas(props){
 }
 
 function ListKelas(props){
-	var loader = () => fetch("/kelas/getList").then( res => res.json() );
+	var loader = () => fetch("/kelas/get-list").then( res => res.json() );
 
 	return (
 	  <DynamicComponent load={loader}>

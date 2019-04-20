@@ -21,6 +21,10 @@ var routeList = [
 		loader: () => import("./views/register-murid")
 	},
 	{
+		path: "edit-murid",
+		loader: () => import("./views/edit-murid")
+	},
+	{
 		path: "list-murid",
 		loader: () => import("./views/list-murid")
 	},

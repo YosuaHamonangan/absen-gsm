@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import DynamicComponent from '../components/dynamic-component';
 
 function Murid(props){
 	var {data} = props;
+	var linkTo = {
+		pathname: "edit-murid",
+		state: { data }
+	}
 	return (
 		<tr>
 			<td>{data.nama || ""}</td>
@@ -11,12 +16,13 @@ function Murid(props){
 			<td>{data.tglLahir || ""}</td>
 			<td>{data.noHp || ""}</td>
 			<td>{data.alamat || ""}</td>
+			<td><Link to={linkTo}>Edit</Link></td>
 		</tr>
 	)
 }
 
 function ListMurid(props){
-	var loader = () => fetch("/murid/getList").then( res => res.json() );
+	var loader = () => fetch("/murid/get-list").then( res => res.json() );
 
 	return (
 	  <DynamicComponent load={loader}>
@@ -41,10 +47,6 @@ function ListMurid(props){
 	  </DynamicComponent>
 	)
 }
-
-fetch("/murid/getList").then( res => res.json() )
-.then( a => console.log(a));
-
 
 export default class view extends Component {
 	render() {

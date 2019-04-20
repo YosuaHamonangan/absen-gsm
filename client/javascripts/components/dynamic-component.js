@@ -8,7 +8,7 @@ export default class DynamicComponent extends Component {
 		}
 	}
 
-	componentDidMount () {
+	componentDidMount(){
 		this.props.load()
 			.then((component) => {
 				this.setState(() => ({
@@ -17,7 +17,7 @@ export default class DynamicComponent extends Component {
 			})
 	}
 	
-	render() {
+	render(){
 		return this.props.children(this.state.component)
 	}
 }

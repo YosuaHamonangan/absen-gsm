@@ -11,7 +11,7 @@ router.post('/register', function(req, res, next) {
 	.then( () => res.redirect("/kelas") )
 });
 
-router.get('/getList', function(req, res, next) {
+router.get('/get-list', function(req, res, next) {
 	kelasModel.findAll({
 		attributes: {
 			exclude: ["murid", "createdAt", "updatedAt"]

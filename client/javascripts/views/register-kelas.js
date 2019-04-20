@@ -32,7 +32,7 @@ class SelectMurid extends Component{
 	}
 
 	render() {
-		var loader = () => fetch("/murid/getList").then( res => res.json() );
+		var loader = () => fetch("/murid/get-list").then( res => res.json() );
 
 		return (
 		  <DynamicComponent load={loader}>

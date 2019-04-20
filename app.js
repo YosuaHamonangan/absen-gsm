@@ -1,5 +1,7 @@
-global.IS_DEV = process.argv[2] === "dev";
+var dotenv = require("dotenv");
+dotenv.config();
 
+global.IS_DEV = process.argv[2] === "dev";
 
 global.Sequelize = require('sequelize');
 if (process.env.DATABASE_URL) {
@@ -34,11 +36,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
+var fileUpload = require('express-fileupload');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(fileUpload());
 
 app.use('/', require('./server/routes/index'));
 app.use('/murid', require('./server/routes/murid'));
