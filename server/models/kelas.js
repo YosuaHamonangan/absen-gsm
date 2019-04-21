@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataType) => {
-	return sequelize.define('kelas', {
+	var kelas = sequelize.define('kelas', {
 		id: {
 			type: DataType.UUID,
 			defaultValue: DataType.UUIDV1,
@@ -16,11 +16,13 @@ module.exports = (sequelize, DataType) => {
 			type: DataType.INTEGER,
 			allowNull: false,
 			unique: "kelas"
-	  	},
-	  	murid: {
-			type: DataType.STRING,
-			defaultValue: "[]",
-			allowNull: false,
 	  	}
-	});
+	}, {freezeTableName: true,});
+
+	kelas.associate = models => {
+		kelas.murid = kelas.hasMany(models.murid, {as: "murid", foreignKey: 'kelasId', constraints: false});
+		kelas.absen = kelas.hasMany(models.absen, {as: "absen", foreignKey: 'kelasId', constraints: false});
+	}
+
+	return kelas;
 }

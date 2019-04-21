@@ -1,17 +1,16 @@
 module.exports = (sequelize, DataType) => {
-	return sequelize.define('absen', {
+	var absen = sequelize.define('absen', {
 		tanggal: {
 			type: DataType.DATEONLY,
 			allowNull: false,
 			unique: "kelas"
-		},
-		kelas: {
-			type: DataType.UUID,
-			allowNull: false,
-			unique: "kelas"
-		},
-	  	muridHadir: {
-			type: DataType.STRING
-	  	}
-	});
+		}
+	}, {freezeTableName: true,});
+
+	absen.associate = models => {
+		absen.murid = absen.hasMany(models.murid, {as: "murid", foreignKey: 'absenId', constraints: false});
+		absen.kelas = absen.hasOne(models.kelas, {as: "kelas", foreignKey: 'absenId', constraints: false});
+	}
+
+	return absen;
 };

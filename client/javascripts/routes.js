@@ -36,10 +36,14 @@ var routeList = [
 		path: "register-kelas",
 		loader: () => import("./views/register-kelas")
 	},
-	// {
-	// 	path: "list-kelas",
-	// 	loader: () => import("./views/list-kelas")
-	// },
+	{
+		path: "edit-kelas",
+		loader: () => import("./views/edit-kelas")
+	},
+	{
+		path: "list-kelas",
+		loader: () => import("./views/list-kelas")
+	},
 	{
 		path: "absen",
 		loader: () => import("./views/absen")

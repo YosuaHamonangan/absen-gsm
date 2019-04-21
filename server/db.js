@@ -29,9 +29,31 @@ fs.readdirSync("./server/models").forEach( fileName => {
 	models[basename] = sequelize.import(modelPath);
 });
 
+for(var name in models){
+	if(typeof models[name].associate === "function"){
+		models[name].associate(models);
+	}
+}
+
 sequelize.sync()
 	.then( () => sequelize.authenticate())
+	// .then( () => {
+	// 	var {models} = db;
+	// 	var murids;
+	// 	models.murid.findAll()
+	// 		.then( list => {
+	// 			murids = list
+	// 			return models.kelas.findAll()
+	// 		})
+	// 		.then( list => {
+	// 			list[1].addMurid(murids);
+	// 			return list[1].getMurid()
+	// 		})
+	// 		.then(a=> console.log(a))
+	// })
 	.then( () => console.log('Database connection has been established successfully.') );
+
+
 
 module.exports = {
 	Sequelize, sequelize, models

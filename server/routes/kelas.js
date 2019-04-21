@@ -1,45 +1,50 @@
 var express = require('express');
 var router = express.Router();
-var {Op} = require('sequelize');
 var muridModel = db.models.murid;
 var kelasModel = db.models.kelas;
 var absenModel = db.models.absen;
 
 router.post('/register', function(req, res, next) {
 	var info = req.body;
-	kelasModel.create(info)
-	.then( () => res.redirect("/kelas") )
+	kelasModel.create(info);
+	res.end();
 });
 
 router.get('/get-list', function(req, res, next) {
 	kelasModel.findAll({
 		attributes: {
-			exclude: ["murid", "createdAt", "updatedAt"]
-		}
+			exclude: ["absenId", "createdAt", "updatedAt"],
+		},
+		include: [kelasModel.murid]
 	})
 	.then( list => res.send(list) )
+});
+
+router.post('/edit', function(req, res, next) {
+	var data = req.body;
+
+	var kelas;
+	kelasModel.findOne({where: {id: data.id} })
+		.then( k => {
+			kelas = k;
+			if(!kelas) throw Error("Kelas not found");
+
+			return muridModel.findAll({
+				where: { id: JSON.parse(data.murid) }
+			})
+		})
+		.then( muridList => {
+			kelas.setMurid(muridList);
+			res.end();
+		});
 });
 
 router.get('/getMuridList', function(req, res, next) {
 	var id = req.query.kelas;
 
 	kelasModel.findOne({where:{id}})
-	.then( kelas => {
-		var murid = JSON.parse(kelas.murid);
-
-		return muridModel.findAll({
-			where: {
-				id: {
-					[Op.or]: murid
-				}
-			},
-			order: [
-				["nama", "ASC"],
-				["marga", "ASC"]
-			]
-		})
-	})
-	.then( list => res.send(list) )
+		.then( kelas => kelas.getMurid() )
+		.then( list => res.send(list) )
 });
 
 router.post('/absen', function(req, res, next) {

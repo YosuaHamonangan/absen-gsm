@@ -15,6 +15,7 @@ router.get('/get-list', function(req, res, next) {
 router.post('/register', function(req, res, next) {
 	var data = req.body;
 	muridModel.create(data);
+	res.end();
 });
 
 router.post('/edit', function(req, res, next) {

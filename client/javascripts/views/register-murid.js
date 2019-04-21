@@ -1,10 +1,26 @@
 import React, { Component } from "react";
 
 export default class view extends Component {
+	onSubmit(evt){
+		evt.preventDefault();
+
+		var body = new FormData(evt.target);
+		fetch("/murid/register", {
+			method: "post",
+			body
+		})
+		.then( res => {
+			if(res.status === 200){
+				console.log("ASdsad")
+				this.props.history.push("/list-murid");
+			}
+		});
+	}
+
 	render() {
 		return (
 			<div>
-				<form action="/murid/register" method="post">
+				<form onSubmit={this.onSubmit.bind(this)}>
 					<label>Nama</label>
 					<input type="text" name="nama"/><br/>
 

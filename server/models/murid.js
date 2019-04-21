@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataType) => {
-	return sequelize.define('murid', {
+	var murid = sequelize.define('murid', {
 		id: {
 			type: DataType.UUID,
 			defaultValue: DataType.UUIDV1,
@@ -29,5 +29,12 @@ module.exports = (sequelize, DataType) => {
 	  	foto: {
 			type: DataType.STRING
 	  	}
-	});
+	}, {freezeTableName: true,});
+
+	murid.associate = models => {
+		murid.absen = murid.hasMany(models.absen, {as: "absen", foreignKey: 'muridId', constraints: false});
+
+	}
+
+	return murid;
 }
