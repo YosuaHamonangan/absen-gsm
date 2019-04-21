@@ -42,7 +42,7 @@ export default class view extends Component {
 					<label>foto</label>
 				  	{
 				  		data.foto ? 
-				  			<div><img src={`murid/get-image?id=${data.foto}`} /></div> : null
+				  			<div><img src={`get-image?id=${data.foto}`} /></div> : null
 				  	}
 					<input type="file" name="foto"/><br/><br/>
 

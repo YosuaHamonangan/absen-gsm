@@ -37,12 +37,10 @@ if(IS_DEV){
 
 	app.get('*', (req, res, next) => {
 		compiler.outputFileSystem.readFile(path.join(__dirname, 'dist', 'index.html'), (err, result) => {
-			if (err) {
-				return next(err)
-			}
-			res.set('content-type', 'text/html')
-			res.send(result)
-			res.end()
+			if(err) return next(err);
+			res.set('content-type', 'text/html');
+			res.send(result);
+			res.end();
 		})
 	});
 }

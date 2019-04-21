@@ -12,12 +12,6 @@ router.get('/get-list', function(req, res, next) {
 	.then( list => res.send(list) )
 });
 
-router.get('/get-image', function(req, res, next) {
-	var {id} = req.query;
-	googleUtils.getFile(id)
-		.then( google_res => res.send(google_res.data) );
-});
-
 router.post('/register', function(req, res, next) {
 	var data = req.body;
 	muridModel.create(data);
