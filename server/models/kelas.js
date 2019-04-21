@@ -1,28 +1,26 @@
-var model =  sequelize.define('kelas', {
-	id: {
-		type: Sequelize.UUID,
-		defaultValue: Sequelize.UUIDV1,
-		allowNull: false,
-		primaryKey: true,
-		unique: true
-	},
-	tahun: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
-		unique: "kelas"
-  	},
-  	horong: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
-		unique: "kelas"
-  	},
-  	murid: {
-		type: Sequelize.STRING,
-		defaultValue: "[]",
-		allowNull: false,
-  	}
-});
-
-model.sync();
-
-module.exports = model;
+module.exports = (sequelize, DataType) => {
+	return sequelize.define('kelas', {
+		id: {
+			type: DataType.UUID,
+			defaultValue: DataType.UUIDV1,
+			allowNull: false,
+			primaryKey: true,
+			unique: true
+		},
+		tahun: {
+			type: DataType.INTEGER,
+			allowNull: false,
+			unique: "kelas"
+	  	},
+	  	horong: {
+			type: DataType.INTEGER,
+			allowNull: false,
+			unique: "kelas"
+	  	},
+	  	murid: {
+			type: DataType.STRING,
+			defaultValue: "[]",
+			allowNull: false,
+	  	}
+	});
+}

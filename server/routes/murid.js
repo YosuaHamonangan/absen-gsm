@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var muridModel = require("../models/murid");
 var googleUtils = require("../utils/google");
+var muridModel = db.models.murid;
 
 router.get('/get-list', function(req, res, next) {
 	muridModel.findAll({

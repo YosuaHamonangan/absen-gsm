@@ -3,33 +3,7 @@ dotenv.config();
 
 global.IS_DEV = process.argv[2] === "dev";
 
-global.Sequelize = require('sequelize');
-if (process.env.DATABASE_URL) {
-	var match = process.env.DATABASE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/);
-
-    sequelize = new Sequelize(match[5], match[1], match[2], {
-      dialect: 'postgres',
-      protocol: 'postgres',
-      port: match[4],
-      host: match[3],
-      logging: false
-    });
-}
-else{
-	global.sequelize = new Sequelize('database', 'username', 'password', {
-		host: 'localhost',
-		dialect: 'sqlite',
-		storage: 'gsm.db',
-		logging: false
-	});
-}
-
-sequelize
-	.authenticate()
-	.then(() => {
-		console.log('Database connection has been established successfully.');
-	})
-
+global.db = require("./db");
 
 var express = require('express');
 var path = require('path');
@@ -44,9 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(fileUpload());
 
-app.use('/', require('./server/routes/index'));
-app.use('/murid', require('./server/routes/murid'));
-app.use('/kelas', require('./server/routes/kelas'));
+app.use('/', require('./routes/index'));
+app.use('/murid', require('./routes/murid'));
+app.use('/kelas', require('./routes/kelas'));
 
 
 if(IS_DEV){	

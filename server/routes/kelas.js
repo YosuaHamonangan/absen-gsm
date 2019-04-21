@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var muridModel = require("../models/murid");
-var kelasModel = require("../models/kelas");
-var absenModel = require("../models/absen");
-var Op = Sequelize.Op;
+var {Op} = require('sequelize');
+var muridModel = db.models.murid;
+var kelasModel = db.models.kelas;
+var absenModel = db.models.absen;
 
 router.post('/register', function(req, res, next) {
 	var info = req.body;
