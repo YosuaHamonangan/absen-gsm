@@ -3,11 +3,19 @@ import ReactDom from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
 import routes from './routes';
+import Header from './components/header'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/style.css';
 
 ReactDom.render(
-	<BrowserRouter>
-		{routes}
-	</BrowserRouter>,
+	(
+		<div>
+			<Header/>
+			<BrowserRouter>
+				{routes}
+			</BrowserRouter>
+		</div>
+	),
 	document.querySelector('#app')
 );
