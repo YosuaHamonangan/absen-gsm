@@ -12,7 +12,7 @@ function Kelas(props){
 		<tr>
 			<td>{data.tahun || ""}</td>
 			<td>{data.horong || ""}</td>
-			<td>BELUM</td>
+			<td>{data.muridCount}</td>
 			<td><Link to={linkTo}>Edit</Link></td>
 		</tr>
 	)

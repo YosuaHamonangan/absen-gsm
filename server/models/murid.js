@@ -1,39 +1,48 @@
-module.exports = (sequelize, DataType) => {
+module.exports = (sequelize, DataTypes) => {
 	var murid = sequelize.define('murid', {
 		id: {
-			type: DataType.UUID,
-			defaultValue: DataType.UUIDV1,
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV1,
 			allowNull: false,
 			primaryKey: true,
 			unique: true
 		},
 		nama: {
-			type: DataType.STRING,
+			type: DataTypes.STRING,
 			allowNull: false
 	  	},
 	  	marga: {
-			type: DataType.STRING
+			type: DataTypes.STRING
 	  	},
 	  	gender: {
-	  		type: DataType.STRING
+	  		type: DataTypes.STRING
 	  	},
 	  	tglLahir: {
-	  		type: DataType.DATE
+	  		type: DataTypes.DATE
 	  	},
 	  	alamat: {
-			type: DataType.STRING
+			type: DataTypes.STRING
 	  	},
 		noHp: {
-			type: DataType.STRING
+			type: DataTypes.STRING
 	  	},
 	  	foto: {
-			type: DataType.STRING
+			type: DataTypes.STRING
 	  	}
 	}, {freezeTableName: true,});
 
 	murid.associate = models => {
-		murid.absen = murid.hasMany(models.absen, {as: "absen", foreignKey: 'muridId', constraints: false});
+		murid.kelas = murid.belongsToMany(models.kelas, {
+			as: 'muridkelas',
+			through: models.muridKelas,
+			foreignKey: "muridId"
+		});
 
+		murid.absen = murid.belongsToMany(models.absen, {
+			as: 'muridabsen',
+			through: models.muridAbsen,
+			foreignKey: "muridId"
+		});
 	}
 
 	return murid;

@@ -24,9 +24,9 @@ else{
 
 var models = {};
 fs.readdirSync("./server/models").forEach( fileName => {
-	var basename =  fileName.replace(path.extname(fileName), "");
-	var modelPath = path.join("./models", basename);
-	models[basename] = sequelize.import(modelPath);
+	var modelPath = path.join("./models", fileName);
+	var model = sequelize.import(modelPath);
+	models[model.getTableName()] = model;
 });
 
 for(var name in models){

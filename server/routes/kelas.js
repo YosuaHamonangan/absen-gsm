@@ -12,12 +12,14 @@ router.post('/register', function(req, res, next) {
 
 router.get('/get-list', function(req, res, next) {
 	kelasModel.findAll({
+		group: ['kelas.id'],
 		attributes: {
-			exclude: ["absenId", "createdAt", "updatedAt"],
+			exclude: [ "absenId", "createdAt", "updatedAt"],
+			include: [ [db.sequelize.fn('COUNT', db.sequelize.col('muridkelas.id')), 'muridCount'] ]
 		},
-		include: [kelasModel.murid]
+		include: [ {model: muridModel, as: 'muridkelas', through: db.models.muridKelas, attributes: [] } ]
 	})
-	.then( list => res.send(list) )
+	.then( list => res.send(list) );
 });
 
 router.post('/edit', function(req, res, next) {
@@ -34,7 +36,7 @@ router.post('/edit', function(req, res, next) {
 			})
 		})
 		.then( muridList => {
-			kelas.setMurid(muridList);
+			kelas.setMuridkelas(muridList);
 			res.end();
 		});
 });
@@ -43,7 +45,7 @@ router.get('/getMuridList', function(req, res, next) {
 	var id = req.query.kelas;
 
 	kelasModel.findOne({where:{id}})
-		.then( kelas => kelas.getMurid() )
+		.then( kelas => kelas.getMuridkelas() )
 		.then( list => res.send(list) )
 });
 

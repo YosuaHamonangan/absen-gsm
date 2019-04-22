@@ -1,0 +1,1 @@
+module.exports = sequelize => sequelize.define('muridAbsen', {}, {freezeTableName: true,});

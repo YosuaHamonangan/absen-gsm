@@ -11,7 +11,6 @@ export default class view extends Component {
 		})
 		.then( res => {
 			if(res.status === 200){
-				console.log("ASdsad")
 				this.props.history.push("/list-murid");
 			}
 		});
