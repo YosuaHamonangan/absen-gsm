@@ -2,6 +2,7 @@ import React from "react";
 import { Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import DynamicComponent from '../components/dynamic-component';
+import { toDateString, getNextSunday, dateIsEqual } from '../utils/date';
 
 function Minggu(props){
 	var {minggu, kelas} = props;
@@ -11,7 +12,7 @@ function Minggu(props){
 	}
 	return (
 		<tr>
-			<td>{minggu.tanggal}</td>
+			<td>{toDateString(minggu.tanggal)}</td>
 			<td>hadir belum</td>
 			<td>absen belum</td>
 			<td><Link to={linkTo}>Edit</Link></td>
@@ -20,8 +21,21 @@ function Minggu(props){
 }
 
 function ListMinggu(props){
-	// var loader = () => fetch("/kelas/get-list").then( res => res.json() );
-	var loader = () => Promise.resolve([{tanggal: "23 april 2019"}, {tanggal: "30 april 2019", }]);
+	var {kelas} = props;
+	var loader = () => fetch(`/absen/get-list?kelasId=${kelas.id}`)
+		.then( res => res.json() )
+		.then( list => {
+			var nextSunday = getNextSunday();
+			list.forEach( minggu => {
+				minggu.tanggal = new Date(minggu.tanggal);
+				if(nextSunday && dateIsEqual(minggu.tanggal, nextSunday)){
+					nextSunday = null;
+				}
+			});
+
+			if(nextSunday) list.unshift({tanggal: nextSunday});
+			return Promise.resolve(list);
+		});
 
 	return (
 	  <DynamicComponent load={loader}>
@@ -37,7 +51,7 @@ function ListMinggu(props){
 		    		</tr>
 	    		</thead>
 	    		<tbody>
-	    			{list.map( (data, i) => <Minggu key={i} minggu={data} kelas={props.kelas}/>)}
+	    			{list.map( (data, i) => <Minggu key={i} minggu={data} kelas={kelas}/>)}
 	    		</tbody>
 	    	</Table>
 	    }

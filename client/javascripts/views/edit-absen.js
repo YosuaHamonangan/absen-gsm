@@ -1,6 +1,7 @@
 import React from "react";
 import { Table } from 'reactstrap';
 import DynamicComponent from '../components/dynamic-component';
+import { toDateString } from '../utils/date';
 
 function Murid(props){
 	var {data} = props;
@@ -25,11 +26,11 @@ class ListMurid extends React.Component{
 		}
 
 		var body = new URLSearchParams();
-		body.append("tanggal", new Date().toISOString())
-		body.append("kelas", this.props.kelas.id)
-		body.append("muridHadir", JSON.stringify(muridList))
+		body.append("tanggal", this.props.minggu.tanggal)
+		body.append("kelasId", this.props.kelas.id)
+		body.append("murid", JSON.stringify(muridList))
 
-		fetch("/kelas/absen", {
+		fetch("/absen/edit", {
 			method: "post",
 			body
 		})
@@ -79,8 +80,8 @@ export default class View extends React.Component {
 		return (
 			<div>
 				<h3>Absen Horong {kelas.horong} tahun {kelas.tahun}</h3>
-				<h3>{minggu.tanggal}</h3>
-				<ListMurid kelas={kelas}/>
+				<h3>{toDateString(minggu.tanggal)}</h3>
+				<ListMurid kelas={kelas} minggu={minggu}/>
 			</div>
 		);
 	}

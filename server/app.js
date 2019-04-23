@@ -21,6 +21,7 @@ app.use(fileUpload());
 app.use('/', require('./routes/index'));
 app.use('/murid', require('./routes/murid'));
 app.use('/kelas', require('./routes/kelas'));
+app.use('/absen', require('./routes/absen'));
 
 
 if(IS_DEV){	

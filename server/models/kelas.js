@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 			through: models.muridKelas,
 			foreignKey: "kelasId"
 		});
-		// kelas.absen = kelas.hasMany(models.absen, {as: "absen", foreignKey: 'kelasId', constraints: false});
+		kelas.absen = kelas.hasMany(models.absen, {as: "absen", foreignKey: 'kelasId', constraints: false});
 	}
 
 	return kelas;

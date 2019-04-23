@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 			through: models.muridAbsen,
 			foreignKey: "absenId"
 		});
-		// absen.kelas = absen.hasOne(models.kelas, {as: "kelas", foreignKey: 'absenId', constraints: false});
+		absen.kelas = absen.belongsTo(models.kelas, {as: "kelas", foreignKey: 'kelasId', constraints: false});
 	}
 
 	return absen;
