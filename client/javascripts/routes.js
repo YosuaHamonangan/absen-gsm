@@ -25,10 +25,6 @@ var routeList = [
 		loader: () => import("./views/edit-murid")
 	},
 	{
-		path: "list-murid",
-		loader: () => import("./views/list-murid")
-	},
-	{
 		path: "kelas",
 		loader: () => import("./views/kelas")
 	},
@@ -39,10 +35,6 @@ var routeList = [
 	{
 		path: "edit-kelas",
 		loader: () => import("./views/edit-kelas")
-	},
-	{
-		path: "list-kelas",
-		loader: () => import("./views/list-kelas")
 	},
 	{
 		path: "absen",

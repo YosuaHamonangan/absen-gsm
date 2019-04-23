@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
-import DynamicComponent from '../components/dynamic-component';
+import DynamicComponent from './dynamic-component';
 
 function Murid(props){
 	var {data} = props;
@@ -48,11 +48,11 @@ function ListMurid(props){
 	)
 }
 
-export default class view extends Component {
+export default class Component extends React.Component {
 	render() {
 		return (
 			<div>
-				list murid
+				Daftar murid yang ada
 				<ListMurid/>
 			</div>
 		);

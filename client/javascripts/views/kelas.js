@@ -1,13 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
+import { Link } from 'react-router-dom';
+import ListKelas from "../components/list-kelas"
 
-export default class view extends Component {
+export default class view extends React.Component {
 	render() {
 		return (
 			<div>
-				<a href="/register-kelas">Tambah kelas baru</a><br/>
-				<a href="/list-kelas">Daftar kelas yang ada</a><br/>
+				<Link to="/register-kelas">Tambah kelas baru</Link><br/>
 				<br/>
-				<a href="/">Kembali</a><br/>
+				<ListKelas/>
 			</div>
 		);
 	}

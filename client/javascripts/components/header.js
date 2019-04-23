@@ -4,7 +4,8 @@ import {
 	NavbarBrand, 
 	Nav,
 	NavItem,
-	NavLink } from 'reactstrap';
+	NavLink } from "reactstrap";
+import "../../stylesheets/header.css";
 
 export default class Component extends React.Component {
 	render() {
