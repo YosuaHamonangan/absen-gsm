@@ -41,6 +41,10 @@ var routeList = [
 		loader: () => import("./views/absen")
 	},
 	{
+		path: "edit-absen",
+		loader: () => import("./views/edit-absen")
+	},
+	{
 		path: "no-page",
 		loader: () => import("./views/no-page")
 	}
