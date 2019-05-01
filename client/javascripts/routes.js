@@ -13,36 +13,36 @@ var routeList = [
 		loader: () => import("./views/home")
 	},
 	{
-		path: "murid",
-		loader: () => import("./views/murid")
+		path: "child",
+		loader: () => import("./views/child")
 	},
 	{
-		path: "register-murid",
-		loader: () => import("./views/register-murid")
+		path: "register-child",
+		loader: () => import("./views/register-child")
 	},
 	{
-		path: "edit-murid",
-		loader: () => import("./views/edit-murid")
+		path: "edit-child",
+		loader: () => import("./views/edit-child")
 	},
 	{
-		path: "kelas",
-		loader: () => import("./views/kelas")
+		path: "class",
+		loader: () => import("./views/class")
 	},
 	{
-		path: "register-kelas",
-		loader: () => import("./views/register-kelas")
+		path: "register-class",
+		loader: () => import("./views/register-class")
 	},
 	{
-		path: "edit-kelas",
-		loader: () => import("./views/edit-kelas")
+		path: "edit-class",
+		loader: () => import("./views/edit-class")
 	},
 	{
-		path: "absen",
-		loader: () => import("./views/absen")
+		path: "week",
+		loader: () => import("./views/week")
 	},
 	{
-		path: "edit-absen",
-		loader: () => import("./views/edit-absen")
+		path: "edit-week",
+		loader: () => import("./views/edit-week")
 	},
 	{
 		path: "no-page",

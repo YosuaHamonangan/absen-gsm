@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom';
 import DynamicComponent from '../components/dynamic-component';
 import { toDateString, getNextSunday, dateIsEqual } from '../utils/date';
 
-function Minggu(props){
-	var {minggu, kelas} = props;
+function Week(props){
+	var {week, class: clas} = props;
 	var linkTo = {
-		pathname: "edit-absen",
-		state: {minggu, kelas}
+		pathname: "edit-week",
+		state: {week, class: clas}
 	};
 
-	var present = minggu.muridCount || 0;
-	var absent = kelas.muridCount - present;;
+	var present = week.childCount || 0;
+	var absent = clas.childCount - present;;
 	return (
 		<tr>
-			<td>{toDateString(minggu.tanggal)}</td>
+			<td>{toDateString(week.date)}</td>
 			<td>{present}</td>
 			<td>{absent}</td>
 			<td><Link to={linkTo}>Edit</Link></td>
@@ -23,21 +23,21 @@ function Minggu(props){
 	)
 }
 
-function ListMinggu(props){
-	var {kelas} = props;
-	var loader = () => fetch(`/absen/get-list?kelasId=${kelas.id}`)
+function ListWeek(props){
+	var {class: clas} = props;
+	var loader = () => fetch(`/week/get-list?grade=${clas.grade}&year=${clas.year}`)
 		.then( res => res.json() )
 		.then( list => {
 			console.log(list)
 			var nextSunday = getNextSunday();
-			list.forEach( minggu => {
-				minggu.tanggal = new Date(minggu.tanggal);
-				if(nextSunday && dateIsEqual(minggu.tanggal, nextSunday)){
+			list.forEach( week => {
+				week.date = new Date(week.date);
+				if(nextSunday && dateIsEqual(week.date, nextSunday)){
 					nextSunday = null;
 				}
 			});
 
-			if(nextSunday) list.unshift({tanggal: nextSunday});
+			if(nextSunday) list.unshift({date: nextSunday});
 			return Promise.resolve(list);
 		});
 
@@ -55,7 +55,7 @@ function ListMinggu(props){
 		    		</tr>
 	    		</thead>
 	    		<tbody>
-	    			{list.map( (data, i) => <Minggu key={i} minggu={data} kelas={kelas}/>)}
+	    			{list.map( (data, i) => <Week key={i} week={data} class={clas}/>)}
 	    		</tbody>
 	    	</Table>
 	    }
@@ -66,16 +66,16 @@ function ListMinggu(props){
 
 export default class View extends React.Component {
 
-	getKelasData(){
+	getClassData(){
 		return this.props.location.state.data;
 	}
 
 	render() {
-		var data = this.getKelasData();
+		var data = this.getClassData();
 		return (
 			<div>
-				<h3>Absen Horong {data.horong} tahun {data.tahun}</h3>
-				<ListMinggu kelas={data}/>
+				<h3>Absen Horong {data.grade} tahun {data.year}</h3>
+				<ListWeek class={data}/>
 			</div>
 		);
 	}

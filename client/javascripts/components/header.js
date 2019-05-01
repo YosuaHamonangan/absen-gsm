@@ -14,10 +14,10 @@ export default class Component extends React.Component {
 				<NavbarBrand href="/">Sekolah Minggu</NavbarBrand>
 				<Nav className="ml-auto" navbar>
 					<NavItem>
-						<NavLink href="/murid">Murid</NavLink>
+						<NavLink href="/child">Murid</NavLink>
 					</NavItem>
 					<NavItem>
-						<NavLink href="/kelas">Kelas</NavLink>
+						<NavLink href="/class">Kelas</NavLink>
 					</NavItem>
 				</Nav>
 			</Navbar>

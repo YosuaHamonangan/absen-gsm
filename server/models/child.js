@@ -1,49 +1,48 @@
 module.exports = (sequelize, DataTypes) => {
-	var murid = sequelize.define('murid', {
-		id: {
+	var child = sequelize.define('child', {
+		uuid: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV1,
 			allowNull: false,
-			primaryKey: true,
 			unique: true
 		},
-		nama: {
+		name: {
 			type: DataTypes.STRING,
 			allowNull: false
 	  	},
-	  	marga: {
+	  	surname: {
 			type: DataTypes.STRING
 	  	},
 	  	gender: {
 	  		type: DataTypes.STRING
 	  	},
-	  	tglLahir: {
+	  	dob: {
 	  		type: DataTypes.DATE
 	  	},
-	  	alamat: {
+	  	address: {
 			type: DataTypes.STRING
 	  	},
-		noHp: {
+		phone: {
 			type: DataTypes.STRING
 	  	},
-	  	foto: {
+	  	photo: {
 			type: DataTypes.STRING
 	  	}
 	}, {freezeTableName: true,});
 
-	murid.associate = models => {
-		murid.kelas = murid.belongsToMany(models.kelas, {
-			as: 'muridkelas',
-			through: models.muridKelas,
-			foreignKey: "muridId"
+	child.associate = models => {
+		child.class = child.belongsToMany(models.class, {
+			as: 'childclass',
+			through: models.childClass,
+			foreignKey: "childId"
 		});
 
-		murid.absen = murid.belongsToMany(models.absen, {
-			as: 'muridabsen',
-			through: models.muridAbsen,
-			foreignKey: "muridId"
+		child.week = child.belongsToMany(models.week, {
+			as: 'childweek',
+			through: models.childWeek,
+			foreignKey: "childId"
 		});
 	}
 
-	return murid;
+	return child;
 }

@@ -19,9 +19,9 @@ app.use(cookieParser());
 app.use(fileUpload());
 
 app.use('/', require('./routes/index'));
-app.use('/murid', require('./routes/murid'));
-app.use('/kelas', require('./routes/kelas'));
-app.use('/absen', require('./routes/absen'));
+app.use('/child', require('./routes/child'));
+app.use('/class', require('./routes/class'));
+app.use('/week', require('./routes/week'));
 
 
 if(IS_DEV){	

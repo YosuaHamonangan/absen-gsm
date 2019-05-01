@@ -5,13 +5,13 @@ export default class view extends Component {
 		evt.preventDefault();
 
 		var body = new FormData(evt.target);
-		fetch("/murid/register", {
+		fetch("/child/register", {
 			method: "post",
 			body
 		})
 		.then( res => {
 			if(res.status === 200){
-				this.props.history.push("/murid");
+				this.props.history.push("/child");
 			}
 		});
 	}
@@ -21,20 +21,17 @@ export default class view extends Component {
 			<div>
 				<form onSubmit={this.onSubmit.bind(this)}>
 					<label>Nama</label>
-					<input type="text" name="nama"/><br/>
+					<input type="text" name="name"/><br/>
 
 					<label>marga</label>
-					<input type="text" name="marga"/><br/>
+					<input type="text" name="surname"/><br/>
 				  	
 				  	<label>alamat</label>
-					<input type="text" name="alamat"/><br/>
+					<input type="text" name="address"/><br/>
 					
 					<label>noHp</label>
-					<input type="text" name="noHp"/><br/>
+					<input type="text" name="phone"/><br/>
 				  	
-				  	<label>foto</label>
-					<input type="text" name="foto"/><br/>
-
 					<input type="submit" value="submit"/>
 				</form>
 			</div>

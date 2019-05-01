@@ -5,9 +5,9 @@ export default class view extends Component {
 		evt.preventDefault();
 
 		var inputData = new FormData(evt.target);
-		var currentData = this.getMuridData();
+		var currentData = this.getChildData();
 		var body = new FormData();
-		body.append("id", currentData.id)
+		body.append("uuid", currentData.uuid)
 
 		for(var d of inputData.entries()){
 			var id = d[0],
@@ -19,44 +19,44 @@ export default class view extends Component {
 			}
 		}
 
-		fetch("/murid/edit", {
+		fetch("/child/edit", {
 			method: "post",
 			body
 		})
 		.then( res => {
 			if(res.status === 200){
-				this.props.history.push("/murid");
+				this.props.history.push("/child");
 			}
 		});
 	}
 
-	getMuridData(){
+	getChildData(){
 		return this.props.location.state.data;
 	}
 
 	render(){
-		var data = this.getMuridData();
+		var data = this.getChildData();
 		return (
 			<div>
 				<form onSubmit={this.onSubmit.bind(this)}>
 					<label>foto</label>
 				  	{
-				  		data.foto ? 
-				  			<div><img src={`get-image?id=${data.foto}`} /></div> : null
+				  		data.photo ? 
+				  			<div><img src={`get-image?id=${data.photo}`} /></div> : null
 				  	}
 					<input type="file" name="foto"/><br/><br/>
 
 					<label>Nama</label>
-					<input type="text" name="nama" defaultValue={data.nama}/><br/>
+					<input type="text" name="name" defaultValue={data.name}/><br/>
 
-					<label>marga</label>
-					<input type="text" name="marga" defaultValue={data.marga}/><br/>
+					<label>Marga</label>
+					<input type="text" name="surname" defaultValue={data.surname}/><br/>
 				  	
-				  	<label>alamat</label>
-					<input type="text" name="alamat" defaultValue={data.alamat}/><br/>
+				  	<label>Alamat</label>
+					<input type="text" name="address" defaultValue={data.address}/><br/>
 					
-					<label>noHp</label>
-					<input type="text" name="noHp" defaultValue={data.noHp}/><br/>
+					<label>Hp</label>
+					<input type="text" name="phone" defaultValue={data.phone}/><br/>
 				  	
 					<input type="submit" value="submit"/>
 				</form>

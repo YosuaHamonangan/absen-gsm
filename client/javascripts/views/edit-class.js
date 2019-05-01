@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import DynamicComponent from '../components/dynamic-component';
 
-function Murid(props){
+function Child(props){
 	var {data} = props;
 	return (
-		<option value={data.id}>{data.nama} {data.marga}</option>
+		<option value={data.uuid}>{data.name} {data.surname}</option>
 	)
 }
 
-class SelectMurid extends Component{
+class SelectChild extends Component{
 	constructor(props){
 		super(props);
 
@@ -32,7 +32,7 @@ class SelectMurid extends Component{
 	}
 
 	render() {
-		var loader = () => fetch("/murid/get-list").then( res => res.json() );
+		var loader = () => fetch("/child/get-list").then( res => res.json() );
 
 		return (
 		  <DynamicComponent load={loader}>
@@ -40,9 +40,9 @@ class SelectMurid extends Component{
 		    	<p>Loading</p> :
 		    	<div> 
 			    	<select onChange={this.onChange.bind(this)} multiple>
-			    		{list.map( (data, i) => <Murid key={i} data={data}/>)}
+			    		{list.map( (data, i) => <Child key={i} data={data}/>)}
 			    	</select>
-			    	<input type="text" name="murid" style={{display:"none"}} value={this.state.result} readOnly/>
+			    	<input type="text" name="child" style={{display:"none"}} value={this.state.result} readOnly/>
 			    </div>
 		    }
 		  </DynamicComponent>
@@ -54,48 +54,32 @@ export default class view extends Component {
 	onSubmit(evt){
 		evt.preventDefault();
 
-		var inputData = new FormData(evt.target);
-		var currentData = this.getKelasData();
-		var body = new FormData();
-		body.append("id", currentData.id)
-
-		for(var d of inputData.entries()){
-			var id = d[0],
-				inputVal = d[1],
-				currentVal = currentData[id];
-
-			if(inputVal != currentVal){
-				body.append(id, inputVal);
-			}
-		}
-
-		fetch("/kelas/edit", {
+		fetch("/class/edit", {
 			method: "post",
-			body
-		})
-		.then( res => {
+			body: new FormData(evt.target)
+		}).then( res => {
 			if(res.status === 200){
-				this.props.history.push("/kelas");
+				this.props.history.push("/class");
 			}
 		});
 	}
 
-	getKelasData(){
+	getClassData(){
 		return this.props.location.state.data;
 	}
 
 	render(){
-		var data = this.getKelasData();
+		var data = this.getClassData();
 		return (
 			<div>
 				<form onSubmit={this.onSubmit.bind(this)}>
 					<label>Tahun</label>
-					<input type="text" name="tahun" value={data.tahun} disabled/><br/>
+					<input type="text" name="year" value={data.year} readOnly/><br/>
 
 					<label>Horong</label>
-					<input type="text" name="horong" value={data.horong} disabled/><br/>
+					<input type="text" name="grade" value={data.grade} readOnly/><br/>
 				  	
-					<SelectMurid/>
+					<SelectChild/>
 					<input type="submit" value="submit"/>
 				</form>
 			</div>

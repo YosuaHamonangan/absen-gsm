@@ -5,13 +5,13 @@ export default class view extends Component {
 		evt.preventDefault();
 
 		var body = new FormData(evt.target);
-		fetch("/kelas/register", {
+		fetch("/class/register", {
 			method: "post",
 			body
 		})
 		.then( res => {
 			if(res.status === 200){
-				this.props.history.push("/kelas");
+				this.props.history.push("/class");
 			}
 		});
 	}
@@ -21,10 +21,10 @@ export default class view extends Component {
 			<div>
 				<form onSubmit={this.onSubmit.bind(this)}>
 					<label>tahun</label>
-					<input type="text" name="tahun"/><br/>
+					<input type="text" name="year"/><br/>
 
 					<label>horong</label>
-					<input type="text" name="horong"/><br/>
+					<input type="text" name="grade"/><br/>
 
 					<input type="submit" value="submit"/>
 				</form>

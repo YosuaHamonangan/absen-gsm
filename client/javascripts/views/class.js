@@ -3,29 +3,30 @@ import { Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import DynamicComponent from '../components/dynamic-component';
 
-function Kelas(props){
+function Class(props){
 	var {data} = props;
 	var linkEdit = {
-		pathname: "/edit-kelas",
+		pathname: "/edit-class",
 		state: { data }
 	};
 
-	var linkAbsen = {
-		pathname: "/absen",
+	var linkWeek = {
+		pathname: "/week",
 		state: { data }
 	};
+
 	return (
 		<tr>
-			<td>{data.tahun || ""}</td>
-			<td>{data.horong || ""}</td>
-			<td>{data.muridCount}<Link to={linkEdit}>Edit</Link></td>
-			<td><Link to={linkAbsen}>Absen</Link></td>
+			<td>{data.year || ""}</td>
+			<td>{data.grade || ""}</td>
+			<td>{data.childCount}<Link to={linkEdit}>Edit</Link></td>
+			<td><Link to={linkWeek}>Absen</Link></td>
 		</tr>
 	)
 }
 
-function ListKelas(props){
-	var loader = () => fetch("/kelas/get-list").then( res => res.json() );
+function ListClass(props){
+	var loader = () => fetch("/class/get-list").then( res => res.json() );
 
 	return (
 	  <DynamicComponent load={loader}>
@@ -41,7 +42,7 @@ function ListKelas(props){
 		    		</tr>
 	    		</thead>
 	    		<tbody>
-	    			{list.map( (data, i) => <Kelas key={i} data={data}/>)}
+	    			{list.map( (data, i) => <Class key={i} data={data}/>)}
 	    		</tbody>
 	    	</Table>
 	    }
@@ -54,8 +55,8 @@ export default class view extends React.Component {
 		return (
 			<div>
 				<h3>Daftar kelas yang ada</h3>
-				<Link to="/register-kelas">Tambah kelas baru</Link><br/>
-				<ListKelas/>
+				<Link to="/register-class">Tambah kelas baru</Link><br/>
+				<ListClass/>
 			</div>
 		);
 	}
