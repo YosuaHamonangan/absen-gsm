@@ -9,12 +9,15 @@ function Minggu(props){
 	var linkTo = {
 		pathname: "edit-absen",
 		state: {minggu, kelas}
-	}
+	};
+
+	var present = minggu.muridCount || 0;
+	var absent = kelas.muridCount - present;;
 	return (
 		<tr>
 			<td>{toDateString(minggu.tanggal)}</td>
-			<td>hadir belum</td>
-			<td>absen belum</td>
+			<td>{present}</td>
+			<td>{absent}</td>
 			<td><Link to={linkTo}>Edit</Link></td>
 		</tr>
 	)
@@ -25,6 +28,7 @@ function ListMinggu(props){
 	var loader = () => fetch(`/absen/get-list?kelasId=${kelas.id}`)
 		.then( res => res.json() )
 		.then( list => {
+			console.log(list)
 			var nextSunday = getNextSunday();
 			list.forEach( minggu => {
 				minggu.tanggal = new Date(minggu.tanggal);

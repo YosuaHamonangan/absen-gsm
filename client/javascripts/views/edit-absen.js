@@ -26,7 +26,7 @@ class ListMurid extends React.Component{
 		}
 
 		var body = new URLSearchParams();
-		body.append("tanggal", this.props.minggu.tanggal)
+		body.append("tanggal", this.props.minggu.tanggal.toISOString())
 		body.append("kelasId", this.props.kelas.id)
 		body.append("murid", JSON.stringify(muridList))
 
